@@ -1,5 +1,6 @@
 # Robust-SMILES-Generator-from-Chemical-Names
-Robust, automated generation of canonical SMILES from chemical names, even with inconsistent formatting, typos, and non-standard nomenclature. The workflow systematically cleans names, generates intelligent variants, and performs multi-tiered database lookups (PubChem REST, PubChemPy synonym, and OPSIN).
+
+In practice, chemical names from laboratory inventory lists, COSMO-RS solvent databases, procurement catalogs, or old experimental records are often inconsistent, concatenated, have typos, ambiguous punctuation, non-IUPAC spellings, or legacy formats entered by different people over years. Most tools or APIs expect well-formed, IUPAC-compliant names or common synonyms. This package is built for robust, automated generation of canonical SMILES from chemical names, even with inconsistent formatting, typos, and non-standard nomenclature. The workflow systematically cleans names, generates intelligent name variants, and performs multi-tiered database lookups (PubChem REST, PubChemPy synonym, and OPSIN) to maximize your chances of getting the correct SMILES. Results are fully traceable, so you always know which variant matched and how.
 
 ---
 
