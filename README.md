@@ -6,8 +6,8 @@ Robust, automated generation of canonical SMILES from chemical names, even with 
 ## Features
 
 - **Automated structure assignment** from raw or inconsistent chemical names.
-- **Intelligent name cleaning and normalization:** Handles underscores, concatenated names, apostrophes, and other data quirks.
-- **Systematic variant generation:** Increases match rate by considering multiple spellings and arrangements of each name.
+- **Intelligent name cleaning and normalization:** Handles underscores, concatenated names, apostrophes, misplaced/extra spaces, ambiguous commas, and other data quirks.
+- **Combinatorial variant generation:** Systematically increases match rate by considering multiple spellings, punctuation, core-group swaps, and suffix splitting for each name.
 - **Multi-tiered lookup:** Queries multiple authoritative sources (PubChem REST, PubChemPy, and OPSIN) in order of reliability.
 - **Comprehensive traceability:** Records the exact method, variant, and lookup status for each assignment.
 
@@ -17,16 +17,19 @@ Robust, automated generation of canonical SMILES from chemical names, even with 
 
 ### 1. Name Extraction and Preparation
 
-- Cleans each name, preserving original punctuation for the initial attempt.
-- Generates a prioritized list of name variants by removing/adding spaces, handling apostrophes, and considering common functional group positions and naming conventions.
+- Cleans each name, preserving original punctuation and spacing for initial queries.
+- Generates prioritized lists of **name variants**:
+    - Removing/adding spaces after commas (`comma_space_variants`)
+    - Minimal “smart” cleaning (removes underscores, extra spaces, optional Title Case)
+    - Progressive suffix splitting (recursively separates glued functional groups)
+    - Core-group swaps (moves “oxide”, “benzene”, etc. to the front if present)
+    - Handles apostrophes and case normalization
 
 ### 2. Multi-Tiered Structure Assignment
 
-- **Tier 1: PubChem REST API**  
-  Direct query for canonical SMILES using each variant. If found, the pipeline records the result and stops further lookups for that name.
-- **Tier 2: PubChemPy Synonym Search**  
-  Checks if any registered synonym (alternate name, IUPAC, trade name) matches in PubChem’s database.
-- **Tier 3: OPSIN (Open Parser for Systematic IUPAC Nomenclature)**  
+- **Tier 1: PubChem REST API and PubChemPy Synonym Search**  
+  Direct query for canonical SMILES using each variant and any registered synonym (alternate name, IUPAC, trade name) matches in PubChem’s database. If found, the pipeline records the result and stops further lookups for that name.
+- **Tier 2: OPSIN (Open Parser for Systematic IUPAC Nomenclature)**  
   For unresolved names, attempts systematic IUPAC parsing via OPSIN, a specialized open-source tool for structure-from-name conversion.
 
 ### 3. Metadata and Traceability
@@ -40,10 +43,3 @@ Robust, automated generation of canonical SMILES from chemical names, even with 
 
 ---
 
-## Requirements
-
-- Python 3.7+
-- [`requests`](https://pypi.org/project/requests/)
-- [`pubchempy`](https://pypi.org/project/PubChemPy/)
-- [`tqdm`](https://pypi.org/project/tqdm/)
-- [`pandas`](https://pypi.org/project/pandas/)
