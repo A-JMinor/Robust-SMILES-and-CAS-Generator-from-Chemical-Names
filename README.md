@@ -1,12 +1,13 @@
-# Robust-SMILES-Generator-from-Chemical-Names
+# Robust-SMILES-and-CAS-Generator-from-Chemical-Names
 
-In practice, chemical names from laboratory inventory lists, COSMO-RS solvent databases, procurement catalogs, or old experimental records are often inconsistent, concatenated, have typos, ambiguous punctuation, non-IUPAC spellings, or legacy formats entered by different people over years. Most tools or APIs expect well-formed, IUPAC-compliant names or common synonyms. This package is built for robust, automated generation of canonical SMILES from chemical names, even with inconsistent formatting, typos, and non-standard nomenclature. The workflow systematically cleans names, generates intelligent name variants, and performs multi-tiered database lookups (PubChem REST, PubChemPy synonym, and OPSIN) to maximize your chances of getting the correct SMILES. Results are fully traceable, so you always know which variant matched and how.
+In practice, chemical names from laboratory inventory lists, COSMO-RS solvent databases, procurement catalogs, or old experimental records are often inconsistent, concatenated, have typos, ambiguous punctuation, non-IUPAC spellings, or legacy formats entered by different people over years. Most tools or APIs expect well-formed, IUPAC-compliant names or common synonyms. This package is built for robust, automated generation of canonical SMILES, CAS numbers and standardized chemical name as found in PubChem (or other source) from messy chemical names — even with inconsistent formatting, typos, or non-standard nomenclature. The workflow systematically cleans names, generates intelligent name variants, and performs multi-tiered database lookups (PubChem REST, PubChemPy synonym, and OPSIN) to maximize your chances of getting the correct SMILES. Results are fully traceable, so you always know which variant matched and how.
 
 ---
 
 ## Features
 
 - **Automated structure assignment** from raw or inconsistent chemical names.
+- **Returns SMILES, CAS, and standardized PubChem name** for each input.
 - **Intelligent name cleaning and normalization:** Handles underscores, concatenated names, apostrophes, misplaced/extra spaces, ambiguous commas, and other data quirks.
 - **Combinatorial variant generation:** Systematically increases match rate by considering multiple spellings, punctuation, core-group swaps, and suffix splitting for each name.
 - **Multi-tiered lookup:** Queries multiple authoritative sources (PubChem REST, PubChemPy, and OPSIN) in order of reliability.
