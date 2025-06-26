@@ -8,7 +8,7 @@ Created on Fri Jun 20 01:20:09 2025
 import re
 import requests, time
 import pubchempy as pcp
-
+from pubchempy import get_compounds
 
 
 
